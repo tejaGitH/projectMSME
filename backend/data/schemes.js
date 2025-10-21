@@ -11,6 +11,7 @@ const schemes = [
         subsidy: "15-35%",
         maxAmount: "₹50 Lakh for manufacturing, ₹20 Lakh for service",
         authority: "Central Government",
+        applyLink: "https://www.kviconline.gov.in/pmegpeportal/jsp/pmegponline.jsp",
         tags: ["New Business", "Subsidy", "Employment Generation"]
     },
     {
@@ -25,6 +26,7 @@ const schemes = [
         subsidy: "No subsidy",
         maxAmount: "₹10 Lakh",
         authority: "Central Government",
+        applyLink: "https://www.mudra.org.in/",
         tags: ["Collateral Free", "Micro Finance", "Quick Processing"]
     },
     {
@@ -39,6 +41,7 @@ const schemes = [
         subsidy: "Guarantee Cover up to 85%",
         maxAmount: "₹5 Crore",
         authority: "Central Government",
+        applyLink: "https://www.cgtmse.in/",
         tags: ["Credit Guarantee", "No Collateral", "MSE"]
     },
     {
@@ -53,6 +56,8 @@ const schemes = [
         subsidy: "Capital and Interest Subsidy",
         maxAmount: "₹25 Lakh",
         authority: "State Government - Goa",
+        eligibilityLink: "https://www.goa.gov.in/wp-content/uploads/2017/10/cmry.pdf",
+        applicationLink: "https://www.goa.gov.in/wp-content/uploads/2017/10/cmry.pdf",
         tags: ["State Scheme", "Goa Specific", "Unemployed Youth"]
     },
     {
@@ -67,6 +72,8 @@ const schemes = [
         subsidy: "No subsidy",
         maxAmount: "₹1 Crore",
         authority: "Central Government",
+        eligibilityLink: "https://www.standupmitra.in/Home/SUISchemes",
+        applicationLink: "https://www.standupmitra.in/Login/Register",
         tags: ["Women Entrepreneur", "SC/ST", "Greenfield"]
     },
     {
@@ -81,6 +88,8 @@ const schemes = [
         subsidy: "15% upfront capital subsidy",
         maxAmount: "Subsidy capped at ₹15 Lakh",
         authority: "Central Government",
+        eligibilityLink: "http://www.dcmsme.gov.in/schemes/credit_link_cap_sub_techno_upgra_scheme.html",
+        applicationLink: "https://clcss.dcmsme.gov.in/",
         tags: ["Technology Upgrade", "Capital Subsidy", "Existing Business"]
     },
     {
@@ -95,6 +104,8 @@ const schemes = [
         subsidy: "Reimbursement of airfare and stall charges",
         maxAmount: "Varies per event",
         authority: "Central Government",
+        eligibilityLink: "https://msme.gov.in/sites/default/files/MDA-guidelines.pdf",
+        applicationLink: "https://msme.gov.in/sites/default/files/MDA-guidelines.pdf",
         tags: ["Market Expansion", "Export", "Existing Business"]
     },
     {
@@ -109,6 +120,8 @@ const schemes = [
         subsidy: "Up to 80% subsidy on certification cost",
         maxAmount: "Subsidy up to ₹5 Lakh",
         authority: "Central Government",
+        eligibilityLink: "https://zed.msme.gov.in/Home/ZEDScheme",
+        applicationLink: "https://zed.msme.gov.in/Login/Register",
         tags: ["Quality Improvement", "Certification", "Manufacturing"]
     },
     {
@@ -123,6 +136,8 @@ const schemes = [
         subsidy: "Subsidy on machinery purchase",
         maxAmount: "Up to 75% of machinery cost",
         authority: "Central Government",
+        eligibilityLink: "http://coirboard.gov.in/?page_id=71",
+        applicationLink: "http://coirboard.gov.in/?page_id=71",
         tags: ["Women Entrepreneur", "Rural", "Artisan"]
     }
 ];

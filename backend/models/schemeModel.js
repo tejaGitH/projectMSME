@@ -18,7 +18,8 @@ const schemeSchema = mongoose.Schema({
   // Financials
   subsidy: { type: String },
   maxAmount: { type: String },
-
+  authority: { type: String },
+  applyLink: { type: String },
   tags: [{ type: String }],
 }, {
   timestamps: true

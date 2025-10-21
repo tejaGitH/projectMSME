@@ -50,10 +50,6 @@ const SchemeFinder = () => {
         setSelectedScheme(null);
     }
 
-    const startApplication = (schemeName) => {
-        alert(`Application process for "${schemeName}" would begin here.`);
-    }
-
     return (
         <section id="schemes" className="py-5">
             <div className="container">
@@ -202,8 +198,10 @@ const SchemeFinder = () => {
                                                     <div className="mb-3"><small className="text-muted">Authority:</small><div className="fw-bold">{scheme.authority}</div></div>
                                                     <div className="mb-3">{scheme.tags.map(tag => <span key={tag} className="scheme-tag">{tag}</span>)}</div>
                                                     <div className="d-flex gap-2">
-                                                        <button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#schemeDetailModal" onClick={() => showSchemeDetails(scheme)}><i className="fas fa-info-circle me-1"></i>View Details</button>
-                                                        <button className="btn btn-outline-primary btn-sm" onClick={() => startApplication(scheme.name)}><i className="fas fa-file-alt me-1"></i>Apply Now</button>
+                                                        <button className="btn btn-primary btn-sm" onClick={() => showSchemeDetails(scheme)}><i className="fas fa-info-circle me-1"></i>View Details</button>
+                                                        <a href={scheme.applyLink} target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary btn-sm">
+                                                            <i className="fas fa-file-alt me-1"></i>Apply Now
+                                                        </a>
                                                     </div>
                                                 </div>
                                             )
