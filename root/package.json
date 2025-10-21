@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "scheme-website": "file:.."
+  }
+}
