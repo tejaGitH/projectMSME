@@ -4,21 +4,64 @@ import SchemeDetailsModal from './SchemeDetailsModal';
 
 const SchemeFinder = () => {
     const [formData, setFormData] = useState({
-        isNewBusiness: 'true',
-        hasExistingLoan: 'false',
-        usedCreditGuarantee: 'false',
-        businessType: '',
-        businessSize: '',
-        location: '',
-        purpose: ''
+        // Basic Classification
+        msmeClassification: '',
+        majorActivity: '',
+        organizationType: '',
+        location: {
+            state: '',
+            district: ''
+        },
+        // Financial Details
+        financialDetails: {
+            annualTurnover: '',
+            plantInvestment: '',
+            employeeCount: '',
+            loanAmount: '',
+            hasGSTIN: false,
+            hasPAN: false
+        },
+        // Entrepreneur Details
+        entrepreneurDetails: {
+            gender: '',
+            socialCategory: '',
+            speciallyAbled: false
+        }
     });
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searched, setSearched] = useState(false);
     const [selectedScheme, setSelectedScheme] = useState(null);
 
+    // Constants for form options
+    const msmeTypes = ['micro', 'small', 'medium'];
+    const activityTypes = ['manufacturing', 'service', 'trading'];
+    const orgTypes = [
+        'proprietary', 'partnership', 'huf', 'company', 'llp', 
+        'cooperative', 'society', 'trust'
+    ];
+    const socialCategories = ['general', 'sc', 'st', 'obc'];
+    const genderTypes = ['M', 'F', 'other'];
+
+    // Handle changes for both top-level and nested state properties
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value, type, checked } = e.target;
+        
+        if (name.includes('.')) {
+            const [parent, child] = name.split('.');
+            setFormData(prev => ({
+                ...prev,
+                [parent]: {
+                    ...prev[parent],
+                    [child]: type === 'checkbox' ? checked : value
+                }
+            }));
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [name]: type === 'checkbox' ? checked : value
+            }));
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -27,17 +70,11 @@ const SchemeFinder = () => {
         setSearched(true);
         setResults([]);
         try {
-            // Convert string booleans to actual booleans for the API call
-            const apiPayload = {
-                ...formData,
-                isNewBusiness: formData.isNewBusiness === 'true',
-                hasExistingLoan: formData.hasExistingLoan === 'true',
-                usedCreditGuarantee: formData.usedCreditGuarantee === 'true',
-            };
-            const { data } = await axios.post('/api/schemes/find', apiPayload);
+            const { data } = await axios.post('/api/schemes/find', formData);
             setResults(data);
         } catch (error) {
             console.error("Error fetching schemes:", error);
+            setResults([]);
         }
         setLoading(false);
     };
@@ -57,121 +94,138 @@ const SchemeFinder = () => {
                     <h2 className="text-center mb-4">Find Your Perfect Scheme</h2>
                     <p className="text-center text-muted mb-5">Answer a few questions to get personalized scheme recommendations</p>
                     
-                    <form id="schemeQueryForm" onSubmit={handleSubmit}>
-                        {/* New Questionnaire Logic */}
-                        <div className="row">
-                            <div className="col-md-12 mb-4">
-                                <label className="form-label">Is this for a new or an existing business?</label>
-                                <div>
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="isNewBusiness" id="isNewBusinessTrue" value="true" checked={formData.isNewBusiness === 'true'} onChange={handleChange} />
-                                        <label className="form-check-label" htmlFor="isNewBusinessTrue">New Business</label>
-                                    </div>
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="isNewBusiness" id="isNewBusinessFalse" value="false" checked={formData.isNewBusiness === 'false'} onChange={handleChange} />
-                                        <label className="form-check-label" htmlFor="isNewBusinessFalse">Existing Business</label>
-                                    </div>
+                    <form onSubmit={handleSubmit}>
+                        {/* Business Classification Section */}
+                        <div className="row mb-4">
+                            <h5>Business Classification</h5>
+                            <div className="col-md-4 mb-3">
+                                <label htmlFor="msmeClassification" className="form-label">MSME Type</label>
+                                <select className="form-select" id="msmeClassification" name="msmeClassification" onChange={handleChange} value={formData.msmeClassification}>
+                                    <option value="">Select MSME Type</option>
+                                    {msmeTypes.map(type => (
+                                        <option key={type} value={type}>{type.charAt(0).toUpperCase() + type.slice(1)}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label htmlFor="majorActivity" className="form-label">Major Activity</label>
+                                <select className="form-select" id="majorActivity" name="majorActivity" onChange={handleChange} value={formData.majorActivity}>
+                                    <option value="">Select Major Activity</option>
+                                    {activityTypes.map(activity => (
+                                        <option key={activity} value={activity}>{activity.charAt(0).toUpperCase() + activity.slice(1)}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label htmlFor="organizationType" className="form-label">Organization Type</label>
+                                <select className="form-select" id="organizationType" name="organizationType" onChange={handleChange} value={formData.organizationType}>
+                                    <option value="">Select Organization Type</option>
+                                    {orgTypes.map(type => (
+                                        <option key={type} value={type}>{type.toUpperCase()}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        {/* Location Section */}
+                        <div className="row mb-4">
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="location.state" className="form-label">State</label>
+                                <input type="text" className="form-control" name="location.state" placeholder="Enter State" onChange={handleChange} value={formData.location.state} />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label htmlFor="location.district" className="form-label">District</label>
+                                <input type="text" className="form-control" name="location.district" placeholder="Enter District" onChange={handleChange} value={formData.location.district} />
+                            </div>
+                        </div>
+
+                        {/* Financial & Employment Section */}
+                        <div className="row mb-4">
+                            <h5>Financial & Employment Details</h5>
+                            <div className="col-md-4 mb-3">
+                                <label className="form-label">Loan Required (in ₹)</label>
+                                <input type="number" className="form-control" name="financialDetails.loanAmount" placeholder="e.g., 1000000" onChange={handleChange} value={formData.financialDetails.loanAmount} />
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label className="form-label">Annual Turnover (in ₹)</label>
+                                <input type="number" className="form-control" name="financialDetails.annualTurnover" placeholder="e.g., 5000000" onChange={handleChange} value={formData.financialDetails.annualTurnover} />
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label className="form-label">Plant & Machinery Investment (in ₹)</label>
+                                <input type="number" className="form-control" name="financialDetails.plantInvestment" placeholder="e.g., 2500000" onChange={handleChange} value={formData.financialDetails.plantInvestment} />
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label className="form-label">Number of Employees</label>
+                                <input type="number" className="form-control" name="financialDetails.employeeCount" placeholder="e.g., 15" onChange={handleChange} value={formData.financialDetails.employeeCount} />
+                            </div>
+                            <div className="col-md-4 mb-3 align-self-center">
+                                <div className="form-check mt-3">
+                                    <input type="checkbox" className="form-check-input" name="financialDetails.hasGSTIN" id="hasGSTIN" onChange={handleChange} checked={formData.financialDetails.hasGSTIN} />
+                                    <label className="form-check-label" htmlFor="hasGSTIN">Has GSTIN</label>
+                                </div>
+                            </div>
+                            <div className="col-md-4 mb-3 align-self-center">
+                                <div className="form-check mt-3">
+                                    <input type="checkbox" className="form-check-input" name="financialDetails.hasPAN" id="hasPAN" onChange={handleChange} checked={formData.financialDetails.hasPAN} />
+                                    <label className="form-check-label" htmlFor="hasPAN">Has PAN</label>
                                 </div>
                             </div>
                         </div>
 
-                        {formData.isNewBusiness === 'false' && (
-                            <div className="row">
-                                <div className="col-md-6 mb-4">
-                                    <label className="form-label">Do you have an existing business loan?</label>
-                                    <div>
-                                        <div className="form-check form-check-inline">
-                                            <input className="form-check-input" type="radio" name="hasExistingLoan" id="hasLoanTrue" value="true" checked={formData.hasExistingLoan === 'true'} onChange={handleChange} />
-                                            <label className="form-check-label" htmlFor="hasLoanTrue">Yes</label>
-                                        </div>
-                                        <div className="form-check form-check-inline">
-                                            <input className="form-check-input" type="radio" name="hasExistingLoan" id="hasLoanFalse" value="false" checked={formData.hasExistingLoan === 'false'} onChange={handleChange} />
-                                            <label className="form-check-label" htmlFor="hasLoanFalse">No</label>
-                                        </div>
-                                    </div>
+                        {/* Entrepreneur Details Section */}
+                        <div className="row mb-4">
+                            <h5>Entrepreneur Details</h5>
+                            <div className="col-md-4 mb-3">
+                                <label htmlFor="entrepreneurDetails.gender" className="form-label">Gender</label>
+                                <select className="form-select" id="entrepreneurDetails.gender" name="entrepreneurDetails.gender" onChange={handleChange} value={formData.entrepreneurDetails.gender}>
+                                    <option value="">Select Gender</option>
+                                    {genderTypes.map(gender => (
+                                        <option key={gender} value={gender}>{gender === 'M' ? 'Male' : gender === 'F' ? 'Female' : 'Other'}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="col-md-4 mb-3">
+                                <label htmlFor="entrepreneurDetails.socialCategory" className="form-label">Social Category</label>
+                                <select className="form-select" id="entrepreneurDetails.socialCategory" name="entrepreneurDetails.socialCategory" onChange={handleChange} value={formData.entrepreneurDetails.socialCategory}>
+                                    <option value="">Select Category</option>
+                                    {socialCategories.map(category => (
+                                        <option key={category} value={category}>{category.toUpperCase()}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="col-md-4 mb-3 align-self-center">
+                                <div className="form-check mt-3">
+                                    <input 
+                                        type="checkbox" 
+                                        className="form-check-input" 
+                                        id="speciallyAbled" 
+                                        name="entrepreneurDetails.speciallyAbled"
+                                        onChange={handleChange}
+                                        checked={formData.entrepreneurDetails.speciallyAbled}
+                                    />
+                                    <label className="form-check-label" htmlFor="speciallyAbled">Specially Abled</label>
                                 </div>
-                                {formData.hasExistingLoan === 'true' && (
-                                    <div className="col-md-6 mb-4">
-                                        <label className="form-label">Did you use a Credit Guarantee for it?</label>
-                                        <div>
-                                            <div className="form-check form-check-inline">
-                                                <input className="form-check-input" type="radio" name="usedCreditGuarantee" id="usedCGTrue" value="true" checked={formData.usedCreditGuarantee === 'true'} onChange={handleChange} />
-                                                <label className="form-check-label" htmlFor="usedCGTrue">Yes</label>
-                                            </div>
-                                            <div className="form-check form-check-inline">
-                                                <input className="form-check-input" type="radio" name="usedCreditGuarantee" id="usedCGFalse" value="false" checked={formData.usedCreditGuarantee === 'true'} onChange={handleChange} />
-                                                <label className="form-check-label" htmlFor="usedCGFalse">No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-
-                        <hr className="my-4" />
-
-                        <div className="row">
-                            <div className="col-md-6 mb-3">
-                                <label htmlFor="businessType" className="form-label">Business Type</label>
-                                <select className="form-select" id="businessType" name="businessType" required onChange={handleChange} value={formData.businessType}>
-                                    <option value="">Select Business Type</option>
-                                    <option value="manufacturing">Manufacturing</option>
-                                    <option value="service">Service</option>
-                                    <option value="trading">Trading</option>
-                                </select>
-                            </div>
-                            <div className="col-md-6 mb-3">
-                                <label htmlFor="businessSize" className="form-label">Business Size</label>
-                                <select className="form-select" id="businessSize" name="businessSize" required onChange={handleChange} value={formData.businessSize}>
-                                    <option value="">Select Business Size</option>
-                                    <option value="micro">Micro Enterprise</option>
-                                    <option value="small">Small Enterprise</option>
-                                    <option value="medium">Medium Enterprise</option>
-                                </select>
                             </div>
                         </div>
-                        
-                        <div className="row">
-                            <div className="col-md-6 mb-3">
-                                <label htmlFor="location" className="form-label">Location</label>
-                                <select className="form-select" id="location" name="location" required onChange={handleChange} value={formData.location}>
-                                    <option value="">Select State</option>
-                                    <option value="goa">Goa</option>
-                                    <option value="maharashtra">Maharashtra</option>
-                                    <option value="karnataka">Karnataka</option>
-                                    <option value="kerala">Kerala</option>
-                                    <option value="all">Other States</option>
-                                </select>
-                            </div>
-                            <div className="col-md-6 mb-3">
-                                <label htmlFor="purpose" className="form-label">Purpose</label>
-                                <select className="form-select" id="purpose" name="purpose" required onChange={handleChange} value={formData.purpose}>
-                                    <option value="">Select Purpose</option>
-                                    <option value="startup">New Business Setup</option>
-                                    <option value="expansion">Business Expansion</option>
-                                    <option value="modernization">Modernization</option>
-                                    <option value="working-capital">Working Capital</option>
-                                    <option value="capacity-building">Capacity Building</option>
-                                </select>
-                            </div>
-                        </div>
-                        
+
                         <div className="text-center mt-4">
-                            <button type="submit" className="btn btn-primary btn-lg px-5">
-                                <i className="fas fa-search me-2"></i>Find Matching Schemes
+                            <button type="submit" className="btn btn-primary btn-lg px-5" disabled={loading}>
+                                {loading ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                        Searching...
+                                    </>
+                                ) : (
+                                    <>
+                                        <i className="fas fa-search me-2"></i>
+                                        Find Schemes
+                                    </>
+                                )}
                             </button>
                         </div>
                     </form>
-                    
-                    {loading && (
-                        <div className="loading-spinner" style={{display: 'block'}}>
-                            <div className="spinner-border text-primary" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </div>
-                            <p className="mt-2">Analyzing your requirements...</p>
-                        </div>
-                    )}
-                    
+
+                    {/* Results Section */}
                     {searched && !loading && (
                         <div className="results-section" style={{display: 'block'}}>
                             <hr className="my-5" />
@@ -183,29 +237,25 @@ const SchemeFinder = () => {
                                             <i className="fas fa-check-circle me-2"></i>
                                             Found {results.length} matching scheme{results.length > 1 ? 's' : ''} for your requirements!
                                         </div>
-                                        {results.map(scheme => {
-                                            return (
-                                                <div className="scheme-card" key={scheme._id}>
-                                                    <div className="d-flex justify-content-between align-items-start mb-3">
-                                                        <h5 className="mb-0">{scheme.name}</h5>
-                                                        {scheme.creditGuarantee && <span className="badge bg-info">Credit Guarantee</span>}
-                                                    </div>
-                                                    <p className="text-muted mb-3">{scheme.description}</p>
-                                                    <div className="row mb-3">
-                                                        <div className="col-md-6"><small className="text-muted">Maximum Amount:</small><div className="fw-bold">{scheme.maxAmount}</div></div>
-                                                        <div className="col-md-6"><small className="text-muted">Subsidy/Benefit:</small><div className="fw-bold">{scheme.subsidy}</div></div>
-                                                    </div>
-                                                    <div className="mb-3"><small className="text-muted">Authority:</small><div className="fw-bold">{scheme.authority}</div></div>
-                                                    <div className="mb-3">{scheme.tags.map(tag => <span key={tag} className="scheme-tag">{tag}</span>)}</div>
-                                                    <div className="d-flex gap-2">
-                                                        <button className="btn btn-primary btn-sm" onClick={() => showSchemeDetails(scheme)}><i className="fas fa-info-circle me-1"></i>View Details</button>
-                                                        <a href={scheme.applyLink} target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary btn-sm">
-                                                            <i className="fas fa-file-alt me-1"></i>Apply Now
-                                                        </a>
-                                                    </div>
+                                        {results.map(scheme => (
+                                            <div className="scheme-card" key={scheme._id}>
+                                                <h5 className="mb-0">{scheme.name}</h5>
+                                                <p className="text-muted mb-3">{scheme.description}</p>
+                                                <div className="row mb-3">
+                                                    <div className="col-md-6"><small className="text-muted">Max Amount:</small><div className="fw-bold">{scheme.financialDetails?.maxAmount || 'N/A'}</div></div>
+                                                    <div className="col-md-6"><small className="text-muted">Authority:</small><div className="fw-bold">{scheme.authority || 'N/A'}</div></div>
                                                 </div>
-                                            )
-                                        })}
+                                                <div>
+                                                    {scheme.tags.map(tag => <span key={tag} className="scheme-tag">{tag}</span>)}
+                                                </div>
+                                                <div className="d-flex gap-2 mt-3">
+                                                    <button className="btn btn-primary btn-sm" onClick={() => showSchemeDetails(scheme)}><i className="fas fa-info-circle me-1"></i>View Details</button>
+                                                    <a href={scheme.applicationPortal} target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary btn-sm">
+                                                        <i className="fas fa-file-alt me-1"></i>Apply Now
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </>
                                 ) : (
                                     <div className="text-center py-5">

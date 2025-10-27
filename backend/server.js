@@ -7,7 +7,7 @@ import connectDB from './config/db.js';
 import schemeRoutes from './routes/schemeRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
 
-dotenv.config({ path: path.resolve(path.dirname(''), 'backend/.env') });
+dotenv.config(); // This will correctly load the .env file in the current directory
 connectDB();
 
 const app = express();

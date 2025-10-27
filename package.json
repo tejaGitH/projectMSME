@@ -1,21 +1,13 @@
 {
-  "name": "scheme-website",
+  "name": "schemewebsitez",
   "version": "1.0.0",
-  "description": "MERN stack application for MSME schemes",
-  "main": "backend/server.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js",
-    "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"cd backend && npm run server\" \"cd frontend && npm start\"",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "concurrently": "^8.2.2",
-    "mongodb": "^6.20.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
+    "concurrently": "^8.0.1"
   }
 }

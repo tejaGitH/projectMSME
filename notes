@@ -1,0 +1,8 @@
+Mongodb clusger name: msmeWebsiteDb
+usernme: dbAdmin
+pwd: b**w****m
+connection String:
+mongodb+srv://dbAdmin:bfcwefcjitm@msmewebsitedb.a2hqi3q.mongodb.net/?retryWrites=true&w=majority&appName=msmeWebsiteDb
+
+npm run dev
+You can now update your data/schemes.js:

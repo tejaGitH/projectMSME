@@ -58,13 +58,16 @@ body {
 }
 
 .query-form {
-    background: #FFFFF0;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    margin-top: -50px;
-    position: relative;
-    z-index: 3;
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
 }
 
 .form-control, .form-select {
@@ -96,12 +99,12 @@ body {
 }
 
 .scheme-card {
-    background: #FFFFF0;
-    border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    border-left: 5px solid #00FFFF;
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-left: 4px solid #00CCCC;
     transition: transform 0.3s ease;
 }
 
@@ -164,4 +167,9 @@ body {
     color: #333;
     padding: 40px 0 20px;
     margin-top: 60px;
+}
+
+/* Fix checkbox alignment */
+.form-check {
+    padding-top: 0.5rem;
 }

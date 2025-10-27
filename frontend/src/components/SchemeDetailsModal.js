@@ -28,8 +28,8 @@ const SchemeDetailsModal = ({ scheme, onClose }) => {
   if (!scheme) return null;
 
   return (
-    <div className="modal fade" ref={modalRef} tabIndex="-1" aria-labelledby="schemeModalLabel" aria-hidden="true">
-      <div className="modal-dialog modal-lg modal-dialog-centered">
+    <div className="modal fade" ref={modalRef} tabIndex="-1">
+      <div className="modal-dialog modal-lg">
         <div className="modal-content">
           <div className="modal-header border-0">
             <h4 className="modal-title" id="schemeModalLabel">{scheme.name}</h4>
@@ -50,13 +50,34 @@ const SchemeDetailsModal = ({ scheme, onClose }) => {
             <h6>Key Eligibility</h6>
             <ul className="list-group list-group-flush mb-3">
                 <li className="list-group-item"><strong>Business Status:</strong> For {scheme.registrationStatus} businesses.</li>
-                <li className="list-group-item"><strong>Business Types:</strong> {scheme.businessType.join(', ')}</li>
-                <li className="list-group-item"><strong>Business Sizes:</strong> {scheme.businessSize.join(', ')}</li>
+                {/* Correctly access nested udyamCriteria */}
+                <li className="list-group-item"><strong>Business Types:</strong> {scheme.udyamCriteria?.majorActivity?.join(', ') || 'N/A'}</li>
+                <li className="list-group-item"><strong>Business Sizes:</strong> {scheme.udyamCriteria?.msmeClassification?.join(', ') || 'N/A'}</li>
             </ul>
             
             <div>
                 {scheme.tags.map(tag => <span key={tag} className="scheme-tag">{tag}</span>)}
             </div>
+
+            {/* Add UDYAM criteria section */}
+            {scheme?.udyamCriteria && (
+              <div className="mt-4">
+                <h6 className="mb-3">UDYAM Criteria</h6>
+                <div className="row">
+                  <div className="col-md-6">
+                    <small className="text-muted">MSME Classification:</small>
+                    {/* Correctly access nested udyamCriteria */}
+                    <div>{scheme.udyamCriteria.msmeClassification?.join(', ') || 'N/A'}</div>
+                  </div>
+                  <div className="col-md-6">
+                    <small className="text-muted">Activity Type:</small>
+                    {/* Correctly access nested udyamCriteria */}
+                    <div>{scheme.udyamCriteria.majorActivity?.join(', ') || 'N/A'}</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
           </div>
           <div className="modal-footer border-0">
             <button type="button" className="btn btn-secondary" onClick={onClose}>Close</button>

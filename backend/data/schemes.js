@@ -1,6 +1,31 @@
 const schemes = [
     {
+        slNo: 1,
+        name: "Entrepreneurship and Skill Development Programme",
+        objective: "To promote entrepreneurship, motivate diverse groups towards self-employment, and provide sector-specific skill training to start micro/small enterprises.",
+        eligibility: "Indian citizens aged 18 years and above. Preference given to SC/ST, Women, Ex-Servicemen, Differently-abled, and BPL persons.",
+        beneficiaryContribution: "No participation fee for SC/ST, Women, Differently-abled, and BPL candidates.",
+        benefits: "Free or subsidized training programmes on entrepreneurship and skill development including EAP, E-SDP, and MDP.",
+        documents: [
+            "Aadhaar Card",
+            "Address Proof",
+            "Caste/Category Certificate",
+            "Educational Qualification Proof",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Candidates apply online through the MyMSME portal or via implementing agencies such as MSME-DIs or TCs.",
+        applicationPortal: "https://my.msme.gov.in/",
+        businessType: ["manufacturing", "service"],
+        businessSize: ["micro", "small"],
+        registrationStatus: "both",
+        tags: ["Skill Development", "Training", "Entrepreneurship"]
+    },
+    {
         name: "PMEGP - Prime Minister's Employment Generation Programme",
+        objective: "To generate employment opportunities through establishment of micro enterprises in non-farm sector",
+        eligibility: "Age: 18 years & above, Minimum 8th pass for projects above ₹10 lakh in manufacturing & ₹5 lakh in service sector",
+        benefits: "Subsidy support (15%–35%), Employment generation, Skill development training under EDP",
         registrationStatus: "new",
         creditGuarantee: false,
         businessType: ["manufacturing", "service"],
@@ -11,11 +36,14 @@ const schemes = [
         subsidy: "15-35%",
         maxAmount: "₹50 Lakh for manufacturing, ₹20 Lakh for service",
         authority: "Central Government",
-        applyLink: "https://www.kviconline.gov.in/pmegpeportal/jsp/pmegponline.jsp",
+        applicationPortal: "https://www.kviconline.gov.in/pmegpeportal/jsp/pmegponline.jsp",
         tags: ["New Business", "Subsidy", "Employment Generation"]
     },
     {
         name: "MUDRA Yojana - Shishu, Kishor, Tarun",
+        objective: "To provide financial assistance to micro enterprises and help in their business growth",
+        eligibility: "Small businesses, manufacturers, shopkeepers, fruits/vegetable vendors, hair salons, etc.",
+        benefits: "Collateral-free loans up to ₹10 lakh, Quick processing, Minimal documentation",
         registrationStatus: "both",
         creditGuarantee: false, // The loan is collateral-free but not via a separate guarantee scheme
         businessType: ["manufacturing", "service", "trading"],
@@ -139,6 +167,268 @@ const schemes = [
         eligibilityLink: "http://coirboard.gov.in/?page_id=71",
         applicationLink: "http://coirboard.gov.in/?page_id=71",
         tags: ["Women Entrepreneur", "Rural", "Artisan"]
+    },
+    {
+        slNo: 11,
+        name: "Second Financial Assistance under PMEGP",
+        objective: "To provide additional financial support to existing successful PMEGP/MUDRA units for expanding/upgrading their businesses.",
+        eligibility: "Existing PMEGP/MUDRA units whose first loan is fully repaid and margin money claim has been adjusted. Unit should have been profitable for the last 3 years.",
+        beneficiaryContribution: "10% of the proposed expansion/upgradation project cost (for all categories)",
+        benefits: "Financial assistance up to ₹1 crore for manufacturing units and ₹25 lakh for service/trading units. Subsidy of 15% (20% for North Eastern Region and hilly states).",
+        documents: [
+            "Previous loan sanction letter",
+            "Proof of margin money claim adjusted",
+            "Project report for expansion/upgradation",
+            "IT returns for last 3 years",
+            "Annual accounts certified by CA"
+        ],
+        process: "Apply through PMEGP e-portal (special link for 2nd loan). Application verified by KVIC/KVIB/DIC within 15 days.",
+        applicationPortal: "https://www.kviconline.gov.in/pmegp",
+        businessType: ["manufacturing", "service", "trading"],
+        businessSize: ["micro", "small"],
+        registrationStatus: "existing",
+        tags: ["Expansion", "Upgradation", "PMEGP"]
+    },
+    {
+        slNo: 12,
+        name: "Coir Vikas Yojana",
+        objective: "To promote the coir industry by providing financial assistance for the purchase of coir machinery and equipment.",
+        eligibility: "Individuals or groups involved in the coir industry. Preference to SC/ST, Women, and BPL persons.",
+        beneficiaryContribution: "10% of the project cost.",
+        benefits: "Financial assistance up to ₹50 lakh for setting up new units and ₹25 lakh for existing units for modernization.",
+        documents: [
+            "Aadhaar Card",
+            "Address Proof",
+            "Caste/Category Certificate",
+            "Project Report",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Application in prescribed format to be submitted to the Coir Board or its designated agencies.",
+        applicationPortal: "http://coirboard.gov.in/?page_id=71",
+        businessType: ["manufacturing"],
+        businessSize: ["micro", "small"],
+        registrationStatus: "new",
+        tags: ["Coir Industry", "Machinery Purchase", "Financial Assistance"]
+    },
+    {
+        slNo: 13,
+        name: "PMEGP - Prime Minister's Employment Generation Programme (Special Scheme for NE and Hill States)",
+        objective: "To generate employment in the North Eastern Region and hilly states through the establishment of micro enterprises.",
+        eligibility: "Indian citizens aged 18 years and above, residing in NE and hilly states. Preference to SC/ST, Women, Ex-Servicemen, Differently-abled, and BPL persons.",
+        beneficiaryContribution: "No participation fee for SC/ST, Women, Differently-abled, and BPL candidates.",
+        benefits: "Credit linked subsidy scheme with a higher subsidy rate of 25-35% for NE and hill states.",
+        documents: [
+            "Aadhaar Card",
+            "Address Proof",
+            "Caste/Category Certificate",
+            "Educational Qualification Proof",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Candidates apply online through the MyMSME portal or via implementing agencies such as MSME-DIs or TCs.",
+        applicationPortal: "https://my.msme.gov.in/",
+        businessType: ["manufacturing", "service"],
+        businessSize: ["micro", "small"],
+        registrationStatus: "both",
+        tags: ["Skill Development", "Training", "Entrepreneurship", "North East", "Hill States"]
+    },
+    {
+        slNo: 14,
+        name: "Stand Up India Scheme (Special Provision for SC/ST and Women Entrepreneurs)",
+        objective: "To provide bank loans to SC/ST and Women entrepreneurs for setting up greenfield enterprises.",
+        eligibility: "SC/ST and Women entrepreneurs above 18 years of age.",
+        beneficiaryContribution: "No separate beneficiary contribution required.",
+        benefits: "Bank loans with a credit guarantee for SC/ST and Women entrepreneurs.",
+        documents: [
+            "Aadhaar Card",
+            "Address Proof",
+            "Caste/Category Certificate",
+            "Business Plan",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Apply online through the Stand Up India portal. Bank will verify and sanction the loan.",
+        applicationPortal: "https://www.standupmitra.in/Home/SUISchemes",
+        businessType: ["manufacturing", "service", "trading"],
+        businessSize: ["small"],
+        registrationStatus: "new",
+        tags: ["Women Entrepreneur", "SC/ST", "Greenfield", "Bank Loan"]
+    },
+    {
+        slNo: 15,
+        name: "Credit Linked Capital Subsidy Scheme (CLCSS) for Technology Upgradation",
+        objective: "To provide capital subsidy for technology upgradation of Micro and Small Enterprises.",
+        eligibility: "Micro and Small Enterprises as defined in the MSMED Act.",
+        beneficiaryContribution: "No separate beneficiary contribution required.",
+        benefits: "15% upfront capital subsidy for technology upgradation.",
+        documents: [
+            "Aadhaar Card",
+            "Address Proof",
+            "Caste/Category Certificate",
+            "Technology Transfer Agreement",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Apply online through the CLCSS portal. Application verified by the nodal agency.",
+        applicationPortal: "https://clcss.dcmsme.gov.in/",
+        businessType: ["manufacturing"],
+        businessSize: ["micro", "small"],
+        registrationStatus: "existing",
+        tags: ["Technology Upgrade", "Capital Subsidy", "Existing Business"]
+    },
+    {
+        slNo: 16,
+        name: "MSME Market Development Assistance (MDA) for International Trade Fairs",
+        objective: "To provide financial assistance to MSMEs for participating in international trade fairs and exhibitions.",
+        eligibility: "MSMEs having a valid Udyog Aadhaar and participating in international trade fairs for the first time.",
+        beneficiaryContribution: "No separate beneficiary contribution required.",
+        benefits: "Reimbursement of 100% of airfare and stall charges for participation in international trade fairs.",
+        documents: [
+            "Aadhaar Card",
+            "Address Proof",
+            "Udyog Aadhaar",
+            "Invitation from the trade fair organizer",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Apply online through the MSME MDA portal. Application verified by the nodal agency.",
+        applicationPortal: "https://msme.gov.in/sites/default/files/MDA-guidelines.pdf",
+        businessType: ["manufacturing", "service"],
+        businessSize: ["micro", "small"],
+        registrationStatus: "existing",
+        tags: ["Market Expansion", "Export", "International Trade Fairs"]
+    },
+    {
+        slNo: 17,
+        name: "ZED (Zero Defect Zero Effect) Certification Scheme for MSMEs",
+        objective: "To provide financial support to MSMEs for obtaining ZED certification.",
+        eligibility: "MSMEs as defined in the MSMED Act.",
+        beneficiaryContribution: "No separate beneficiary contribution required.",
+        benefits: "Up to 80% subsidy on the certification cost for ZED certification.",
+        documents: [
+            "Aadhaar Card",
+            "Address Proof",
+            "Udyog Aadhaar",
+            "Self-declaration of turnover",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Apply online through the ZED portal. Application verified by the nodal agency.",
+        applicationPortal: "https://zed.msme.gov.in/Login/Register",
+        businessType: ["manufacturing"],
+        businessSize: ["micro", "small", "medium"],
+        registrationStatus: "existing",
+        tags: ["Quality Improvement", "Certification", "Manufacturing"]
+    },
+    {
+        slNo: 18,
+        name: "Mahila Coir Yojana for Women Artisans",
+        objective: "To provide training and financial assistance to women artisans in the coir industry.",
+        eligibility: "Women artisans above 18 years of age, involved in or intending to start coir production.",
+        beneficiaryContribution: "No separate beneficiary contribution required.",
+        benefits: "Training and stipends for women artisans in the coir industry.",
+        documents: [
+            "Aadhaar Card",
+            "Address Proof",
+            "Caste/Category Certificate",
+            "Artisan ID (if available)",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Apply through the Coir Board or its designated agencies. Selection based on the artisan's profile and project proposal.",
+        applicationPortal: "http://coirboard.gov.in/?page_id=71",
+        businessType: ["manufacturing"],
+        businessSize: ["micro"],
+        registrationStatus: "new",
+        tags: ["Women Artisan", "Coir Industry", "Training", "Financial Assistance"]
+    },
+    {
+        slNo: 19,
+        name: "Startup India Seed Fund Scheme",
+        objective: "To provide financial assistance to startups for proof of concept, prototype development, and product trials.",
+        eligibility: "Startups recognized by the DPIIT under the Startup India initiative.",
+        beneficiaryContribution: "No separate beneficiary contribution required.",
+        benefits: "Financial assistance of up to ₹50 lakh for startups.",
+        documents: [
+            "DPIIT Recognition Certificate",
+            "Business Plan",
+            "Projected Financial Statements",
+            "Details of the Promoters",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Apply online through the Startup India portal. Applications will be evaluated on a rolling basis.",
+        applicationPortal: "https://www.startupindia.gov.in/",
+        businessType: ["manufacturing", "service", "trading"],
+        businessSize: ["micro", "small"],
+        registrationStatus: "new",
+        tags: ["Startup", "Seed Fund", "Financial Assistance"]
+    },
+    {
+        slNo: 20,
+        name: "PM Gati Shakti National Master Plan",
+        objective: "To provide multi-modal connectivity and logistics support to various sectors including MSMEs.",
+        eligibility: "All sectors including MSMEs, Cooperatives, and Self-help groups.",
+        beneficiaryContribution: "Varies as per the project and sector.",
+        benefits: "Financial assistance for projects related to connectivity, logistics, and infrastructure development.",
+        documents: [
+            "Project Report",
+            "Land Acquisition Documents",
+            "Environmental Clearance (if applicable)",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Submit project proposal to the concerned authority as per the project guidelines.",
+        applicationPortal: "https://www.pmgsyt.gov.in/",
+        businessType: ["manufacturing", "service", "trading"],
+        businessSize: ["micro", "small", "medium"],
+        registrationStatus: "new",
+        tags: ["Infrastructure", "Logistics", "Connectivity", "MSME"]
+    },
+    {
+        slNo: 21,
+        name: "Digital MSME Scheme",
+        objective: "To promote digital transformation in MSMEs by providing financial assistance for adopting digital technologies.",
+        eligibility: "MSMEs as defined in the MSMED Act.",
+        beneficiaryContribution: "No separate beneficiary contribution required.",
+        benefits: "Financial assistance for adopting digital technologies like ERP, CRM, and other software solutions.",
+        documents: [
+            "Aadhaar Card",
+            "Address Proof",
+            "Udyog Aadhaar",
+            "Quotation for software/technology",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Apply online through the Digital MSME portal. Application verified by the nodal agency.",
+        applicationPortal: "https://digitalmsme.gov.in/",
+        businessType: ["manufacturing", "service"],
+        businessSize: ["micro", "small"],
+        registrationStatus: "existing",
+        tags: ["Digital Transformation", "Technology Adoption", "MSME"]
+    },
+    {
+        slNo: 22,
+        name: "MSME Competitive (Lean) Manufacturing Programme",
+        objective: "To enhance the competitiveness of MSMEs through the adoption of lean manufacturing techniques.",
+        eligibility: "MSMEs as defined in the MSMED Act.",
+        beneficiaryContribution: "No separate beneficiary contribution required.",
+        benefits: "Financial assistance for implementing lean manufacturing techniques and practices.",
+        documents: [
+            "Aadhaar Card",
+            "Address Proof",
+            "Udyog Aadhaar",
+            "Project Report",
+            "Bank Account Details",
+            "Passport-size Photograph"
+        ],
+        process: "Apply online through the Lean Manufacturing portal. Application verified by the nodal agency.",
+        applicationPortal: "https://www.dcmsme.gov.in/",
+        businessType: ["manufacturing"],
+        businessSize: ["micro", "small"],
+        registrationStatus: "existing",
+        tags: ["Lean Manufacturing", "Competitiveness", "MSME"]
     }
 ];
 
